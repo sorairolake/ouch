@@ -15,9 +15,8 @@ use crate::{
     error::{Error, FinalError, Result},
     list::FileInArchive,
     utils::{
-        cd_into_same_dir_as,
+        Bytes, EscapedPathDisplay, FileVisibilityPolicy, cd_into_same_dir_as,
         logger::{info, warning},
-        Bytes, EscapedPathDisplay, FileVisibilityPolicy,
     },
 };
 
@@ -171,7 +170,10 @@ where
 }
 
 /// List contents of `archive_path`, returning a vector of archive entries
-pub fn list_archive<R>(reader: R, password: Option<&[u8]>) -> Result<impl Iterator<Item = crate::Result<FileInArchive>>>
+pub fn list_archive<R>(
+    reader: R,
+    password: Option<&[u8]>,
+) -> Result<impl Iterator<Item = crate::Result<FileInArchive>> + use<R>>
 where
     R: Read + Seek,
 {
@@ -192,7 +194,7 @@ where
                 Err(err) => {
                     return Err(Error::InvalidPassword {
                         reason: err.to_string(),
-                    })
+                    });
                 }
             };
             sevenz_rust2::decompress_with_extract_fn_and_password(

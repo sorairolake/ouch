@@ -12,17 +12,16 @@ use rayon::prelude::{IndexedParallelIterator, IntoParallelRefIterator, ParallelI
 use utils::colors;
 
 use crate::{
-    check,
+    CliArgs, QuestionPolicy, check,
     cli::Subcommand,
     commands::{compress::compress_files, decompress::decompress_file, list::list_archive_contents},
     error::{Error, FinalError},
     extension::{self, parse_format_flag},
     list::ListOptions,
     utils::{
-        self, colors::*, is_path_stdin, logger::info_accessible, path_to_str, EscapedPathDisplay, FileVisibilityPolicy,
-        QuestionAction,
+        self, EscapedPathDisplay, FileVisibilityPolicy, QuestionAction, colors::*, is_path_stdin,
+        logger::info_accessible, path_to_str,
     },
-    CliArgs, QuestionPolicy,
 };
 
 /// Warn the user that (de)compressing this .zip archive might freeze their system.

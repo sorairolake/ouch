@@ -12,9 +12,9 @@ use fs_err as fs;
 
 pub use self::args::{CliArgs, Subcommand};
 use crate::{
-    accessible::set_accessible,
-    utils::{is_path_stdin, FileVisibilityPolicy},
     QuestionPolicy,
+    accessible::set_accessible,
+    utils::{FileVisibilityPolicy, is_path_stdin},
 };
 
 impl CliArgs {

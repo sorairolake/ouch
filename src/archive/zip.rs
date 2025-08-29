@@ -10,19 +10,19 @@ use std::{
     thread,
 };
 
-use filetime_creation::{set_file_mtime, FileTime};
+use filetime_creation::{FileTime, set_file_mtime};
 use fs_err as fs;
 use same_file::Handle;
 use time::OffsetDateTime;
-use zip::{self, read::ZipFile, DateTime, ZipArchive};
+use zip::{self, DateTime, ZipArchive, read::ZipFile};
 
 use crate::{
     error::FinalError,
     list::FileInArchive,
     utils::{
-        cd_into_same_dir_as, get_invalid_utf8_paths,
+        Bytes, EscapedPathDisplay, FileVisibilityPolicy, cd_into_same_dir_as, get_invalid_utf8_paths,
         logger::{info, info_accessible, warning},
-        pretty_format_list_of_paths, strip_cur_dir, Bytes, EscapedPathDisplay, FileVisibilityPolicy,
+        pretty_format_list_of_paths, strip_cur_dir,
     },
 };
 
@@ -116,7 +116,7 @@ where
 pub fn list_archive<R>(
     mut archive: ZipArchive<R>,
     password: Option<&[u8]>,
-) -> impl Iterator<Item = crate::Result<FileInArchive>>
+) -> impl Iterator<Item = crate::Result<FileInArchive>> + use<R>
 where
     R: Read + Seek + Send + 'static,
 {

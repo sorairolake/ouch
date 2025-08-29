@@ -9,13 +9,14 @@ use std::{
 };
 
 use crate::{
-    error::FinalError,
-    extension::{build_archive_file_suggestion, Extension},
-    utils::{
-        logger::{info_accessible, warning},
-        pretty_format_list_of_paths, try_infer_extension, user_wants_to_continue, EscapedPathDisplay,
-    },
     QuestionAction, QuestionPolicy, Result,
+    error::FinalError,
+    extension::{Extension, build_archive_file_suggestion},
+    utils::{
+        EscapedPathDisplay,
+        logger::{info_accessible, warning},
+        pretty_format_list_of_paths, try_infer_extension, user_wants_to_continue,
+    },
 };
 
 /// Check if the mime type matches the detected extensions.

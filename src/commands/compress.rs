@@ -7,11 +7,10 @@ use fs_err as fs;
 
 use super::warn_user_about_loading_sevenz_in_memory;
 use crate::{
-    archive,
+    BUFFER_CAPACITY, QuestionAction, QuestionPolicy, archive,
     commands::warn_user_about_loading_zip_in_memory,
-    extension::{split_first_compression_format, CompressionFormat::*, Extension},
-    utils::{io::lock_and_flush_output_stdio, user_wants_to_continue, FileVisibilityPolicy},
-    QuestionAction, QuestionPolicy, BUFFER_CAPACITY,
+    extension::{CompressionFormat::*, Extension, split_first_compression_format},
+    utils::{FileVisibilityPolicy, io::lock_and_flush_output_stdio, user_wants_to_continue},
 };
 
 /// Compress files into `output_file`.
@@ -71,7 +70,7 @@ pub fn compress_files(
             Lzma => {
                 return Err(crate::Error::UnsupportedFormat {
                     reason: "LZMA1 compression is not supported in ouch, use .xz instead.".to_string(),
-                })
+                });
             }
             Xz => Box::new(liblzma::write::XzEncoder::new(
                 encoder,
@@ -80,7 +79,7 @@ pub fn compress_files(
             Lzip => {
                 return Err(crate::Error::UnsupportedFormat {
                     reason: "Lzip compression is not supported in ouch.".to_string(),
-                })
+                });
             }
             Snappy => Box::new(
                 gzp::par::compress::ParCompress::<gzp::snap::Snap>::builder()

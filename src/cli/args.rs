@@ -131,7 +131,7 @@ mod tests {
     }
 
     macro_rules! test {
-        ($args:expr, $expected:expr) => {
+        ($args:expr_2021, $expected:expr_2021) => {
             let result = match CliArgs::try_parse_from(args_splitter($args)) {
                 Ok(result) => result,
                 Err(err) => panic!(

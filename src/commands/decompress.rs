@@ -9,11 +9,11 @@ use fs_err as fs;
 #[cfg(not(feature = "bzip3"))]
 use crate::archive;
 use crate::{
+    BUFFER_CAPACITY, QuestionAction, QuestionPolicy,
     commands::{warn_user_about_loading_sevenz_in_memory, warn_user_about_loading_zip_in_memory},
     extension::{
-        split_first_compression_format,
         CompressionFormat::{self, *},
-        Extension,
+        Extension, split_first_compression_format,
     },
     utils::{
         self,
@@ -22,7 +22,6 @@ use crate::{
         logger::{info, info_accessible},
         nice_directory_display, user_wants_to_continue,
     },
-    QuestionAction, QuestionPolicy, BUFFER_CAPACITY,
 };
 
 trait ReadSeek: Read + io::Seek {}
@@ -58,10 +57,12 @@ pub fn decompress_file(options: DecompressOptions) -> crate::Result<()> {
     // in-memory decompression/copying first.
     //
     // Any other Zip decompression done can take up the whole RAM and freeze ouch.
-    if let [Extension {
-        compression_formats: [Zip],
-        ..
-    }] = options.formats.as_slice()
+    if let [
+        Extension {
+            compression_formats: [Zip],
+            ..
+        },
+    ] = options.formats.as_slice()
     {
         let mut vec = vec![];
         let reader: Box<dyn ReadSeek> = if input_is_stdin {

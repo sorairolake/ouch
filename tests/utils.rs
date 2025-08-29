@@ -14,7 +14,7 @@ use rand::{Rng, RngCore};
 /// Run ouch with the provided arguments, returns [`assert_cmd::Output`]
 #[macro_export]
 macro_rules! ouch {
-    ($($e:expr),*) => {
+    ($($e:expr_2021),*) => {
         $crate::utils::cargo_bin()
             $(.arg($e))*
             .arg("--yes")

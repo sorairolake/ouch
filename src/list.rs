@@ -1,7 +1,7 @@
 //! Some implementation helpers related to the 'list' command.
 
 use std::{
-    io::{stdout, BufWriter, Write},
+    io::{BufWriter, Write, stdout},
     path::{Path, PathBuf},
 };
 
@@ -85,7 +85,7 @@ mod tree {
     use linked_hash_map::LinkedHashMap;
 
     use super::FileInArchive;
-    use crate::utils::{logger::warning, EscapedPathDisplay};
+    use crate::utils::{EscapedPathDisplay, logger::warning};
 
     /// Directory tree
     #[derive(Debug, Default)]

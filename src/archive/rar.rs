@@ -7,7 +7,7 @@ use unrar::Archive;
 use crate::{
     error::{Error, Result},
     list::FileInArchive,
-    utils::{logger::info, Bytes},
+    utils::{Bytes, logger::info},
 };
 
 /// Unpacks the archive given by `archive_path` into the folder given by `output_folder`.
@@ -50,7 +50,7 @@ pub fn unpack_archive(
 pub fn list_archive(
     archive_path: &Path,
     password: Option<&[u8]>,
-) -> Result<impl Iterator<Item = Result<FileInArchive>>> {
+) -> Result<impl Iterator<Item = Result<FileInArchive>> + use<>> {
     let archive = match password {
         Some(password) => Archive::with_password(archive_path, password),
         None => Archive::new(archive_path),

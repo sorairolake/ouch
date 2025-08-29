@@ -14,16 +14,16 @@ mod question;
 pub use self::{
     file_visibility::FileVisibilityPolicy,
     formatting::{
-        nice_directory_display, os_str_to_str, path_to_str, pretty_format_list_of_paths, strip_cur_dir, Bytes,
-        EscapedPathDisplay,
+        Bytes, EscapedPathDisplay, nice_directory_display, os_str_to_str, path_to_str, pretty_format_list_of_paths,
+        strip_cur_dir,
     },
     fs::{
         cd_into_same_dir_as, create_dir_if_non_existent, is_path_stdin, remove_file_or_dir,
         rename_for_available_filename, rename_recursively, resolve_path_conflict, try_infer_extension,
     },
     question::{
-        ask_to_create_file, user_wants_to_continue, user_wants_to_overwrite, FileConflitOperation, QuestionAction,
-        QuestionPolicy,
+        FileConflitOperation, QuestionAction, QuestionPolicy, ask_to_create_file, user_wants_to_continue,
+        user_wants_to_overwrite,
     },
     utf8::{get_invalid_utf8_paths, is_invalid_utf8},
 };

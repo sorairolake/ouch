@@ -15,9 +15,8 @@ use crate::{
     error::FinalError,
     list::FileInArchive,
     utils::{
-        self,
+        self, Bytes, EscapedPathDisplay, FileVisibilityPolicy,
         logger::{info, warning},
-        Bytes, EscapedPathDisplay, FileVisibilityPolicy,
     },
 };
 

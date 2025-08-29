@@ -16,8 +16,8 @@ use once_cell::sync::Lazy;
 use self::{
     error::{Error, Result},
     utils::{
-        logger::{shutdown_logger_and_wait, spawn_logger_thread},
         QuestionAction, QuestionPolicy,
+        logger::{shutdown_logger_and_wait, spawn_logger_thread},
     },
 };
 
